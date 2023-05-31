@@ -1,10 +1,11 @@
 from main import Item,Console,Packer
 import pandas as pd
 
+#Read the file containing all the information regarding the items
 df=pd.read_csv('itemsList.csv')
-# df = df[df['destination'] == -2660893353461949155]
 items=[]
 
+#Code to order the dimensions of the items in descending order
 dict = {}
 for index, row in df.iterrows():
     x,y,z = row['length'],row['width'],row['height']
@@ -21,8 +22,10 @@ df = df.drop(axis=1,columns=['height','length','width'])
 
 df = df.merge(df1, on = ['id_x'], how='inner')
 
+#Create a instance of the class Packer
 packer = Packer()
 
+#add all the items to the class Item
 for _, row in df.iterrows():
     id = row['id_x']
     width=row['width']
@@ -37,10 +40,11 @@ for _, row in df.iterrows():
 
     packer.add_item(Item(id,width,height,length,weight,stackable,availableDate,dueDate,origin,destination))
 
+    
+#Read the console Data
 consoleDF=pd.read_csv('ConsoleData.csv')
-# consoleDF = consoleDF[consoleDF['Destination'] == -2660893353461949155]
-# consoleDF = consoleDF[consoleDF['Origin'] == -3904063458061856064]
 
+#Add all the consoles to the class Console
 for _, row in consoleDF.iterrows():
     id = row['Id']
     type_val = row['Type']
@@ -61,19 +65,12 @@ for _, row in consoleDF.iterrows():
     
     packer.add_console(Console(id,type_val,max_weight,pivot_weight,rate_to_pivot_weight,rate_above_pivot_weight,fix_rate,height,depth,width,max_volume,origin,destination,departure,arrival))
 
+#Call the function pack to start packing 
 packer.pack()
 
-print(consoleDF['Id'])
-
+#create a list of all the items packed and related attributes
 item_r = list()
-count = 0
 for console in packer.consoles:
-    print('Console:',console.string())
-    print('Filled Volume',console.get_total_volume())
-    print('Total Weight',console.get_total_weight())
-    print('Volume Used',(console.get_total_volume()/console.get_volume())*100)
-    print('Weight Used',)
-    print('Items:')
     c_id = str(console.id)
     max_v = console.max_volume
     tot_v = console.get_total_volume()
@@ -90,13 +87,16 @@ for console in packer.consoles:
     
         data = [c_id,i_id,w,l,h,p,rt,tot_v,max_v,vol_d,percentage_v_used]
         item_r.append(data)
-    print('Unfitted items:')
 
+#Count the number of itens which didn't get packed
+count = 0
 for item in packer.items:
         if item.is_packed == False:
             count += 1
 print(count)
         
+#create a DB of the packed items
 packed_items = pd.DataFrame(item_r,columns=['Container_id','Item_id','Width','Length','Height','Position','Rotation','Console_utilised_volume','Console_Usable_Volume','Total_Volume','%Utilization'])
-print(packed_items)
+
+#save the DB to get the packing of all the items along with the consoles in which they are packed and their respective postions and orientation
 packed_items.to_excel("packed_items.xlsx",index=False)
