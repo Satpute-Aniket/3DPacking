@@ -1,3 +1,4 @@
+#Defines the Rotation types and assigns it some values for ease of use
 class RotationType:
     RT_WLH = 0
     RT_HWL = 1
@@ -8,7 +9,7 @@ class RotationType:
 
     ALL = [RT_WHL, RT_HWL, RT_HLW, RT_LHW, RT_LWH, RT_WLH]
 
-
+#Defines the axis and assigns values to them
 class Axis:
     WIDTH = 0
     LENGTH = 2
