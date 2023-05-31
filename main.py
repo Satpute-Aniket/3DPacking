@@ -2,9 +2,10 @@ from auxiliary_functions import set_to_decimal,intersect
 from constants import RotationType
 import pandas as pd
 
+#Define the default position
 START_POSITION = [0,0,0]
-DEFAULT_NUMBER_OF_DECIMALS = 3
 
+#define the class for all the items and functions related to it
 class Item:
     def __init__(self,id,width,length,height,weight,stackable,availableDate,dueDate,origin,destination):
         self.id = id
@@ -21,28 +22,23 @@ class Item:
         self.position = START_POSITION
         self.is_packed = False
         self.number_of_decimals = DEFAULT_NUMBER_OF_DECIMALS
-
-    # def format_numbers(self,number_of_decimals):
-    #     self.width = set_to_decimal(self.width, number_of_decimals)
-    #     self.height = set_to_decimal(self.height, number_of_decimals)
-    #     self.length = set_to_decimal(self.length, number_of_decimals)
-    #     self.weight = set_to_decimal(self.weight, number_of_decimals)
-    #     self.number_of_decimals = number_of_decimals
     
+    #function to get volume of a item
     def get_volume(self):
         return self.width*self.height*self.length
 
-    
+    #function to get the largest surface area of a item
     def get_surface_area(self):
         return self.width*self.length
 
-
+    #function to print all the important attributes of an item
     def string(self):
         return "%s(%sx%sx%s, weight: %s) pos(%s) rt(%s) vol(%s) surf_area(%s)" % (
             self.id, self.width, self.length, self.height, self.weight,
             self.position, self.rotation_type, self.get_volume(), self.get_surface_area()
         )
     
+    #function to get the dimensions of an item according to the rotation type
     def get_dimensions(self):
         if self.rotation_type == RotationType.RT_WHL:
             dimension = [self.width, self.height, self.length]
@@ -60,7 +56,8 @@ class Item:
             dimension = [0,0,0]
 
         return dimension
-    
+
+#Class for the consoles and its function
 class Console:
     def __init__(self, id, type, max_weight, pivot_weight, rate_to_pivot_weight, rate_above_pivot_weight, fixed_rate, height, length, width, max_volume, origin, destination, departure, arrival):
         self.id = id
@@ -82,37 +79,28 @@ class Console:
         self.unfitted_items = []
         self.pivot = [START_POSITION]
         self.number_of_decimals = DEFAULT_NUMBER_OF_DECIMALS
-
-    # def format_numbers(self, number_of_decimals):
-    #     self.width = set_to_decimal(self.width, number_of_decimals)
-    #     self.height = set_to_decimal(self.height, number_of_decimals)
-    #     self.length = set_to_decimal(self.length, number_of_decimals)
-    #     self.max_weight = set_to_decimal(self.max_weight, number_of_decimals)
-    #     self.pivot_weight = set_to_decimal(self.pivot_weight, number_of_decimals)
-    #     self.rate_to_pivot_weight = set_to_decimal(self.rate_to_pivot_weight, number_of_decimals)
-    #     self.rate_above_pivot_weight = set_to_decimal(self.rate_above_pivot_weight, number_of_decimals)
-    #     self.fixed_rate = set_to_decimal(self.fixed_rate, number_of_decimals)
-    #     self.max_volume = set_to_decimal(self.max_volume, number_of_decimals)
-    #     self.number_of_decimals = number_of_decimals
     
+    #Function to get volume of the console
     def get_volume(self):
         return self.height*self.width*self.length
 
-    
+    #function to print all the important attributes of the console
     def string(self):
         return "%s(%sx%sx%s, max weight: %s) vol(%s)" % (
             self.id,self.width,self.length,self.height,
             self.max_weight, self.get_volume()
         )
     
+    #function to get the total weight of the console at all points
     def get_total_weight(self):
         total_weight = 0
-
+        
         for item in self.items:
             total_weight += item.weight
 
         return (total_weight)
     
+    #function to get the utilised volume of the cosole at all given points
     def get_total_volume(self):
         total_volume = 0
 
@@ -121,6 +109,7 @@ class Console:
 
         return (total_volume)
     
+    #function to check if the item fits into a container or not
     def put_item(self, item):
         fit = False
         valid_item_position = item.position
@@ -175,22 +164,26 @@ class Console:
                 continue
             else:
                 return fit
-        
+
+#Define the class packer, contains list of all the items and consoles and the functions to pack the given item and add consoles and items
 class Packer:
     def __init__(self):
         self.consoles = []
         self.items = []
         self.unfit_items = []
         self.total_items = 0
-
+    
+    #function to add console to class Console
     def add_console(self, console):
         return self.consoles.append(console)
     
+    #function to add item to class Item
     def add_item(self, item):
         self.total_items = len(self.items) + 1
 
         return self.items.append(item)
     
+    #function to check if a console is empty or not and add item accordingly
     def pack_to_console(self, console, item):
         fitted = False
 
@@ -209,6 +202,7 @@ class Packer:
         else:
             console.unfitted_items.append(item)
 
+    #function to sort the items and console and pack items to consoles respectively
     def pack(
             self, bigger_first = True, distribute_items = False,
             number_of_decimals = DEFAULT_NUMBER_OF_DECIMALS
