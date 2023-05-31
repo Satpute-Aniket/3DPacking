@@ -1,15 +1,11 @@
 from decimal import Decimal
 from constants import Axis
 
+#Code to check if the two boxes intersect or not
 class Point:
     def __init__(self,x,y):
         self.x = x
         self.y = y
-
-def set_to_decimal(value,number_of_decimals):
-    number_of_decimals = Decimal('1.{}'.format('0' * number_of_decimals))
-
-    return Decimal(value).quantize(number_of_decimals)
 
 def rect_intersect(item_1,item_2,x,y):
     a = item_1.get_dimensions()
