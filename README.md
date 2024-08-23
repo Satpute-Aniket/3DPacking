@@ -1,0 +1,49 @@
+# 3D Packing Optimization Project
+## Overview
+This project addresses the 3D Container Loading Problem (CLP), a complex and computationally intensive task where the primary
+objective is to optimize the packing of items into containers while minimizing overall logistics costs. The problem is NP-hard,
+making it challenging to solve with exact methods alone, especially as the problem size increases. Our solution integrates both
+exact and heuristic approaches to effectively manage and optimize this packing problem.
+
+## Problem Statement
+
+The project tackles three key aspects of the CLP:
+1. Spatial Optimization:Efficiently arranging items within containers to maximize space utilization and ensure stable packing.
+2. Feasibility of Transport: Ensuring that containers can be transported to their designated destinations without violating weight and volume constraints.
+3. Cost Minimization: Reducing the overall costs associated with logistics, including transportation and storage, by optimizing the packing configuration.
+
+## Methodology
+
+### 1. Data Engineering & exploration
+We began with comprehensive data engineering and exploration to understand the characteristics of the items to be packed. This step included analyzing item dimensions, weights, and other relevant features to inform our model development.
+
+### 2. Mixed Integer Programming (MIP) model
+We implemented a Mixed Integer Programming (MIP) model using Gurobi and Python. The MIP model is designed to optimize the assignment of items to containers, ensuring that:
+- Items do not overlap within containers.
+- Weight and volume constraints are respected.
+- The packing configuration minimizes unused space and optimizes container load efficiency.
+
+### 3. Heuristic Methods
+To manage large-scale problems, where exact methods may be computationally prohibitive, we employed heuristic methods. These methods provide approximate solutions in a shorter time frame, making them practical for real-world applications.
+
+### 4. Visualization and reporting
+Data visualization techniques were used throughout the project to better understand the results and communicate findings. We presented the packing configurations and the performance of our model through clear and informative visualizations.
+
+### 5. Results
+The project achieved a packing efficiency of 95.62%, successfully processing 2,386 items into 135 containers. The total cost for this optimized packing solution was €6.33 million, showcasing significant cost savings through effective space utilization and strategic item placement.
+
+### 6. Tools and Technologies
+- **Gurobi**: For solving the MIP model.
+- **Python**: For data processing, model implementation, and heuristic methods.
+- **Data Visualization**: To present the packing configurations and model performance clearly.
+
+### 7. Conclusion
+This project demonstrates a robust approach to solving the 3D Container Loading Problem by combining exact optimization methods with heuristic approaches. The solution effectively balances computational efficiency with practical application, delivering a cost-efficient and operationally feasible packing strategy.
+
+### 8. Repository Structure
+- **/Code**: Source code for the MIP model and heuristic methods along with notebooks for data exploration and model development.
+- **/Resources**: All the research papers refered and used in the completion of this project.
+- **README.md**: Project overview and documentation.
+
+> [!Note]
+> The Input or the Output data cannot be made public as this project was carried out in collaboration with an organisation. We are thankfull for providing us with the problem statement and the required data.
