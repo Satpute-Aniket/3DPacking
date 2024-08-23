@@ -1,4 +1,4 @@
-# 3D Packing Optimization Project
+# 3D Bin Packing Optimization Project
 ## Overview
 This project addresses the 3D Container Loading Problem (CLP), a complex and computationally intensive task where the primary
 objective is to optimize the packing of items into containers while minimizing overall logistics costs. The problem is NP-hard,
