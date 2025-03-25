@@ -34,7 +34,7 @@ The visualisation showcases the container in question along with the orientation
 
 ![](https://github.com/Satpute-Aniket/3DPacking/blob/main/screenshots/Figure_1.png)
 
-### 5. Results
+## Results
 The project achieved a packing efficiency of 95.62%, successfully processing 2,386 items into 135 containers (The containers are filled upto 90% of its volume). The total cost for this optimized packing solution was €6.33 million, showcasing significant cost savings through effective space utilization and strategic item placement. You can see the entire set of results in the below table:
 
 | % Volume utilisation | Cost         | % change in cost | Packing efficiency (%) | Unpacked Items |
@@ -46,15 +46,15 @@ The project achieved a packing efficiency of 95.62%, successfully processing 2,3
 
 These results were achieved in a runtime of just over an hour using a machine with a 8 core 16 threads AMD Rzyen 7 6800H CPU with 16GB of DDR5 RAM.
 
-### 6. Tools and Technologies
+### 1. Tools and Technologies
 - **Gurobi**: For solving the MIP model.
 - **Python**: For data processing, model implementation, and heuristic methods.
 - **mpl_toolkits & matplotlib**: To present the packing configurations and model performance clearly.
 
-### 7. Conclusion
+### 2. Conclusion
 This project demonstrates a robust approach to solving the 3D Container Loading Problem by combining exact optimization methods with heuristic approaches. The solution effectively balances computational efficiency with practical application, delivering a cost-efficient and operationally feasible packing strategy.
 
-### 8. Repository Structure
+## Repository Structure
 - **/Code**: Source code for the MIP model and heuristic methods along with notebooks for data exploration and model development.
 - **/Resources**: All the research papers refered and used in the completion of this project.
 - **/screenshots**: Screenshots used in this Readme.
